@@ -1,0 +1,2 @@
+C:\msys64\ucrt64\bin\ar.exe qc libIOData.a CMakeFiles/IOData.dir/IOData.cpp.obj
+C:\msys64\ucrt64\bin\ranlib.exe libIOData.a

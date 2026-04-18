@@ -1,0 +1,12 @@
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/CMakeFiles/Teacher_tools.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/CMakeFiles/edit_cache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/CMakeFiles/rebuild_cache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Element/CMakeFiles/ElementClass.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Element/CMakeFiles/edit_cache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Element/CMakeFiles/rebuild_cache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/IOData/CMakeFiles/IOData.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/IOData/CMakeFiles/edit_cache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/IOData/CMakeFiles/rebuild_cache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Cache/CMakeFiles/OptionCache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Cache/CMakeFiles/edit_cache.dir
+D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Cache/CMakeFiles/rebuild_cache.dir

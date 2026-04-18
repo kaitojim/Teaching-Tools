@@ -1,0 +1,38 @@
+[
+{
+  "directory": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Element",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ElementClass.dir/includes_CXX.rsp -g -o CMakeFiles\\ElementClass.dir\\element.cpp.obj -c \"D:\\OneDrive - Ho Chi Minh city University of Food Industry\\Learning\\Learning\\Teacher's tool\\V3\\Tools\\Element\\element.cpp\"",
+  "file": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/Element/element.cpp",
+  "output": "Element/CMakeFiles/ElementClass.dir/element.cpp.obj"
+},
+{
+  "directory": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Element",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ElementClass.dir/includes_CXX.rsp -g -o CMakeFiles\\ElementClass.dir\\word.cpp.obj -c \"D:\\OneDrive - Ho Chi Minh city University of Food Industry\\Learning\\Learning\\Teacher's tool\\V3\\Tools\\Element\\word.cpp\"",
+  "file": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/Element/word.cpp",
+  "output": "Element/CMakeFiles/ElementClass.dir/word.cpp.obj"
+},
+{
+  "directory": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Element",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/ElementClass.dir/includes_CXX.rsp -g -o CMakeFiles\\ElementClass.dir\\sentence.cpp.obj -c \"D:\\OneDrive - Ho Chi Minh city University of Food Industry\\Learning\\Learning\\Teacher's tool\\V3\\Tools\\Element\\sentence.cpp\"",
+  "file": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/Element/sentence.cpp",
+  "output": "Element/CMakeFiles/ElementClass.dir/sentence.cpp.obj"
+},
+{
+  "directory": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/IOData",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/IOData.dir/includes_CXX.rsp -g -o CMakeFiles\\IOData.dir\\IOData.cpp.obj -c \"D:\\OneDrive - Ho Chi Minh city University of Food Industry\\Learning\\Learning\\Teacher's tool\\V3\\Tools\\IOData\\IOData.cpp\"",
+  "file": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/IOData/IOData.cpp",
+  "output": "IOData/CMakeFiles/IOData.dir/IOData.cpp.obj"
+},
+{
+  "directory": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Cache",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/OptionCache.dir/includes_CXX.rsp -g -o CMakeFiles\\OptionCache.dir\\cache.cpp.obj -c \"D:\\OneDrive - Ho Chi Minh city University of Food Industry\\Learning\\Learning\\Teacher's tool\\V3\\Tools\\Cache\\cache.cpp\"",
+  "file": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/Cache/cache.cpp",
+  "output": "Cache/CMakeFiles/OptionCache.dir/cache.cpp.obj"
+},
+{
+  "directory": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Cache",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/OptionCache.dir/includes_CXX.rsp -g -o CMakeFiles\\OptionCache.dir\\InputOption.cpp.obj -c \"D:\\OneDrive - Ho Chi Minh city University of Food Industry\\Learning\\Learning\\Teacher's tool\\V3\\Tools\\Cache\\InputOption.cpp\"",
+  "file": "D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/Cache/InputOption.cpp",
+  "output": "Cache/CMakeFiles/OptionCache.dir/InputOption.cpp.obj"
+}
+]

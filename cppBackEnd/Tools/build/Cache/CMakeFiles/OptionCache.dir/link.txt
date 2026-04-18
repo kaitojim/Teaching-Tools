@@ -1,0 +1,2 @@
+C:\msys64\ucrt64\bin\ar.exe qc libOptionCache.a CMakeFiles/OptionCache.dir/cache.cpp.obj CMakeFiles/OptionCache.dir/InputOption.cpp.obj
+C:\msys64\ucrt64\bin\ranlib.exe libOptionCache.a

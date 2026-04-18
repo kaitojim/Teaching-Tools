@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/cmake_install.cmake",
+		"D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Element/cmake_install.cmake",
+		"D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/IOData/cmake_install.cmake",
+		"D:/OneDrive - Ho Chi Minh city University of Food Industry/Learning/Learning/Teacher's tool/V3/Tools/build/Cache/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

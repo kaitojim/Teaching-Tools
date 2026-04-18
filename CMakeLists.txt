@@ -2,12 +2,10 @@ cmake_minimum_required(VERSION 4.0)
 project(elementProcess)
 
 add_definitions(-DNAPI_VERSION=9)
-# include_directories(${CMAKE_JS_INC} "cpp")
 file(GLOB SOURCE_FILES "cppBackEnd/*")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
-# target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_JS_INC})
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
 
 execute_process(

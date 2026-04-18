@@ -13,11 +13,20 @@
     "lint": "echo \"No linting configured\"",
     "build": "cmake-js compile"
   },
+  "binary": {
+    "napi_versions": [9]
+  },
+    "cmake-js": {
+    "runtime": "electron",
+    "runtimeVersion": "22.0.0",
+    "arch": "x64"
+  },
   "keywords": [],
   "author": {
     "name": "Kaitojim",
     "email": "kaitojim@gmail.com"
   },
+  "type": "commonjs",
   "license": "MIT",
   "devDependencies": {
     "@electron-forge/cli": "^7.11.1",

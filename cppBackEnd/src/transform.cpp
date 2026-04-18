@@ -6,10 +6,10 @@
 #include <memory>
 #include <cstdlib>
 
-#include ".\Tools\Element\element.h"
-#include ".\Tools\Element\word.h"
-#include ".\Tools\Element\sentence.h"
-#include ".\Tools\InputOption.h"
+#include "..\header\element.h"
+#include "..\header\word.h"
+#include "..\header\sentence.h"
+#include "..\header\InputOption.h"
 
 #define NO_VALUE 9900
 

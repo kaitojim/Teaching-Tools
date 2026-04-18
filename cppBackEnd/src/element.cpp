@@ -1,4 +1,4 @@
-#include "element.h"
+#include "..\header\element.h"
 #include <cctype>
 
 std::vector<int> Element::randomGen(int lim, int num)

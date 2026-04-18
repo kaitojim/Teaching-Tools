@@ -5,8 +5,8 @@
 #include <string>
 #include <stdexcept>
 
-#include "..\random.h"
-#include "..\InputOption.h"
+#include "random.h"
+#include "InputOption.h"
 
 class ProcessMode
 {

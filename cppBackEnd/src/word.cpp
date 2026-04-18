@@ -1,4 +1,4 @@
-#include "word.h"
+#include "..\header\word.h"
 
 std::string Word::blank(ProcessMode& process)
 {

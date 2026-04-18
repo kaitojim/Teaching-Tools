@@ -1,4 +1,4 @@
-#include "sentence.h"
+#include "..\header\sentence.h"
 
 Sentence::Sentence(std::string input) : Element(input) 
 {

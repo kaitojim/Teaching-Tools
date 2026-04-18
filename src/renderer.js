@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
   optionBtns.forEach(btn => {
     btn.addEventListener('click', function () {
       const set = parseInt(this.dataset.set, 10);
+      //const set = this.data.set;
+      // const option = this.textContent.trim();
       const option = this.dataset.option;
 
       if (
@@ -54,10 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
         this.classList.add('active');
 
         const existingIndex = userSelections.findIndex(selection => selection.category === set);
+        // const existingIndex = userSelections.findIndex(selection => selection.hasOwnProperty(set));
         if (existingIndex >= 0) {
           userSelections[existingIndex].option = option;
+          //  userSelections[existingIndex][set] = optionText
         } else {
           userSelections.push({ category: set, option });
+          // let newSelection = {};
+          // newSelection[set] = optionText;
+          // userSelections.push(newSelection);
         }
 
         categoriesChosen[set] = true;

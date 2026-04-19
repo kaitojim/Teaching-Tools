@@ -26,7 +26,7 @@
  * ```
  */
 
-import './index.css';
+// import './index.css';
 
 document.addEventListener('DOMContentLoaded', () => {
   const inputArea = document.getElementById('roundedInput');
@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   optionBtns.forEach(btn => {
     btn.addEventListener('click', function () {
+      // const set = parseInt(this.dataset.set, 10);
+      //const option = this.dataset.option;
       const set = parseInt(this.dataset.set, 10);
-      //const set = this.data.set;
-      // const option = this.textContent.trim();
-      const option = this.dataset.option;
+      const option = this.textContent.trim();
 
       if (
         set === 1 ||
@@ -55,16 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
         sameCategoryBtns.forEach(categoryBtn => categoryBtn.classList.remove('active'));
         this.classList.add('active');
 
-        const existingIndex = userSelections.findIndex(selection => selection.category === set);
-        // const existingIndex = userSelections.findIndex(selection => selection.hasOwnProperty(set));
+        // const existingIndex = userSelections.findIndex(selection => selection.category === set);
+        const existingIndex = userSelections.findIndex(selection => selection.hasOwnProperty(set));
         if (existingIndex >= 0) {
-          userSelections[existingIndex].option = option;
-          //  userSelections[existingIndex][set] = optionText
+          // userSelections[existingIndex].option = option;
+          userSelections[existingIndex][set] = option;
         } else {
-          userSelections.push({ category: set, option });
-          // let newSelection = {};
-          // newSelection[set] = optionText;
-          // userSelections.push(newSelection);
+          // userSelections.push({ category: set, option });
+          let newSelection = {};
+          newSelection[set] = option;
+          userSelections.push(newSelection);
         }
 
         categoriesChosen[set] = true;
@@ -86,14 +86,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const processInput = () => {
+  const processInput = async () => { // Added async
     const text = inputArea.value.trim();
+    
     if (text) {
-      outputArea.value = text;
-      inputArea.value = '';
-      outputArea.scrollTop = outputArea.scrollHeight;
+      try {
+        // Call the bridge instead of handleInput directly
+        // This sends the data to the Main process and waits for the result
+        let array = await window.cppAPI.transform(text, userSelections, 90);
+        
+        console.log(array);
+        
+        outputArea.value = ""; // Clear before loop if needed
+        for(let i = 0; i < array.length; i++) {
+          const index = i + 1;
+          outputArea.value += `${index}/ ${array[i]} \n`;
+        }
+        
+        inputArea.value = '';
+        outputArea.scrollTop = outputArea.scrollHeight;
+      } catch (err) {
+        console.error("C++ Addon Error:", err);
+      }
     }
-  };
+};
+
 
   inputArea.addEventListener('keydown', event => {
     if (event.key === 'Enter' && !event.shiftKey) {

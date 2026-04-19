@@ -1,5 +1,12 @@
 const { app, BrowserWindow } = require('electron');
+const { ipcMain } = require('electron');
 const path = require('node:path');
+const handleInput = require("../build/Release/elementProcess.node")
+
+ipcMain.handle('transform-element', async (event, text, userSelections, value) => {
+  // Call the actual C++ function
+  return handleInput.elementTransform(text, userSelections, value);
+});
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {

@@ -14,13 +14,17 @@
     "build": "cmake-js compile"
   },
   "binary": {
-    "napi_versions": [9]
+    "napi_versions": [
+      9
+    ]
   },
-    "cmake-js": {
+  "cmake-js": {
     "runtime": "electron",
     "runtimeVersion": "22.0.0",
     "arch": "x64"
   },
+  "nodeIntegration": true,
+  "contextIsolation": false,
   "keywords": [],
   "author": {
     "name": "Kaitojim",
@@ -38,9 +42,11 @@
     "@electron-forge/plugin-fuses": "^7.11.1",
     "@electron-forge/plugin-webpack": "^7.11.1",
     "@electron/fuses": "^1.8.0",
+    "@electron/packager": "^19.1.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "css-loader": "^6.11.0",
     "electron": "41.2.0",
+    "electron-rebuild": "^3.2.9",
     "node-loader": "^2.1.0",
     "style-loader": "^3.3.4"
   },

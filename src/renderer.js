@@ -27,6 +27,7 @@
  */
 
 // import './index.css';
+require('./index.css');
 
 document.addEventListener('DOMContentLoaded', () => {
   const inputArea = document.getElementById('roundedInput');

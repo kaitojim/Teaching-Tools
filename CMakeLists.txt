@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 project(elementProcess)
 
 add_definitions(-DNAPI_VERSION=9)
-file(GLOB SOURCE_FILES "cppBackEnd/*")
+file(GLOB SOURCE_FILES "cppBackEnd/src/*.cpp")
 
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
@@ -14,7 +14,7 @@ execute_process(
   OUTPUT_VARIABLE NODE_ADDON_API_DIR
 )
 string(STRIP ${NODE_ADDON_API_DIR} NODE_ADDON_API_DIR)
-target_include_directories(${PROJECT_NAME} PRIVATE ${NODE_ADDON_API_DIR} ${CMAKE_JS_INC})
+target_include_directories(${PROJECT_NAME} PRIVATE ${NODE_ADDON_API_DIR} ${CMAKE_JS_INC} "./cppBackEnd/header")
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
 
 if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)

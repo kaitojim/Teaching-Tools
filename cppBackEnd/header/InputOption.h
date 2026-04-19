@@ -1,6 +1,9 @@
 #ifndef INPUT_OPTION_H
 #define INPUT_OPTION_H
 
+#include <unordered_map>
+#include <string>
+
 enum optionId
 {
     // No option
@@ -22,11 +25,37 @@ enum optionId
 };
 
 
+namespace optionConvert
+{
+    inline std::unordered_map<std::string, optionId> convertTable 
+    {
+        {"word",                                        optionId::word},
+        {"sentence",                                    optionId::sentence},
+        {"scramble",                                    optionId::scramble},
+        {"fillintheblank",                           optionId::fill},
+        {"fillintheblank(percentage)",               optionId::percent},
+        {"fillintheblank(wordorcharacter)",        optionId::wordChar},
+        {"fillintheblank(index)",                    optionId::idx},
+        {"fillintheblank(firstletterorword)",     optionId::firstWord}
+    };
+}
+
 template <typename Tp>
 struct inputOption
 {
     optionId inputOptionId {};
     Tp value;
 };
+
+inline optionId stringToId(const std::string& inputStr, std::unordered_map<std::string, optionId> convertTable = optionConvert::convertTable)
+{
+    std::string error {};
+    auto it {convertTable.find(inputStr)};
+    if (it != convertTable.end())
+    {
+        return it->second;
+    }
+    throw error = "Cannot find string";
+}
 
 #endif

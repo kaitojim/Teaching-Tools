@@ -1,2 +1,0 @@
-C:\msys64\ucrt64\bin\ar.exe qc libElementClass.a CMakeFiles/ElementClass.dir/element.cpp.obj CMakeFiles/ElementClass.dir/word.cpp.obj CMakeFiles/ElementClass.dir/sentence.cpp.obj
-C:\msys64\ucrt64\bin\ranlib.exe libElementClass.a

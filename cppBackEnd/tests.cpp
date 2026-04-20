@@ -6,10 +6,10 @@
 #include <memory>
 #include <cstdlib>
 
-#include ".\cppBackEnd\header\element.h"
-#include ".\cppBackEnd\header\InputOption.h"
-#include ".\cppBackEnd\header\word.h"
-#include ".\cppBackEnd\header\sentence.h"
+#include ".\header\element.h"
+#include ".\header\InputOption.h"
+#include ".\header\word.h"
+#include ".\header\sentence.h"
 
 template <typename Tp>
 void additionalBlankProcessMode(ProcessMode& process, optionId inputOptionId, Tp value)
@@ -84,5 +84,5 @@ void elementProcessMode(const std::string& input, std::vector<std::unique_ptr<El
 int main()
 {
     std::string test {"word, elephant, ground floor"};
-
+    return 0;
 }

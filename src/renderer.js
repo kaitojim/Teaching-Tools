@@ -1,32 +1,3 @@
-/**
- * This file will automatically be loaded by webpack and run in the "renderer" context.
- * To learn more about the differences between the "main" and the "renderer" context in
- * Electron, visit:
- *
- * https://electronjs.org/docs/tutorial/process-model
- *
- * By default, Node.js integration in this file is disabled. When enabling Node.js integration
- * in a renderer process, please be aware of potential security implications. You can read
- * more about security risks here:
- *
- * https://electronjs.org/docs/tutorial/security
- *
- * To enable Node.js integration in this file, open up `main.js` and enable the `nodeIntegration`
- * flag:
- *
- * ```
- *  // Create the browser window.
- *  mainWindow = new BrowserWindow({
- *    width: 800,
- *    height: 600,
- *    webPreferences: {
- *      nodeIntegration: true
- *    }
- *  });
- * ```
- */
-
-// import './index.css';
 require('./index.css');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let userSelections = [];
   let categoriesChosen = {};
+  let additionalValue = {};
+  let inputAddValue = false;
 
   optionBtns.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -76,7 +49,16 @@ document.addEventListener('DOMContentLoaded', () => {
             nextBtn.disabled = false;
           });
         } else {
+          inputAddValue = true;
           inputArea.disabled = false;
+          if (option.includes("Fill in the blank (percentage)") || option.includes("Fill in the blank (index)")) {
+            inputArea.placeholder = "Enter a number";
+          } 
+          else if(option.includes("Fill in the blank (word or letter)")) {
+            inputArea.placeholder = "Enter a word/character";
+          }
+          else if(option.includes("Fill in the blank (first letter or word)")) {inputAddValue = false;}
+          
           inputArea.focus();
         }
 
@@ -89,12 +71,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const processInput = async () => { // Added async
     const text = inputArea.value.trim();
-    
-    if (text) {
+    if(!text)
+    {
+      return;
+    }
+    else if (inputAddValue) 
+    {
+      const currentMode = userSelections.find(s => s[3]); // Find Set 3 selection
+      const modeName = currentMode ? currentMode[3] : "";
+
+      if (modeName.includes("percentage") || modeName.includes("index"))
+      {
+        additionalValue = Number(text);
+        if (isNaN(additionalValue))
+        {
+          alert("Please enter a valid number");
+          inputArea.value = "";
+          return;
+        }
+      }
+      else
+      {
+        additionalValue = text;
+      }
+      inputAddValue   = false;
+      inputArea.placeholder = "Enter text here";
+      inputArea.value = "";
+    }
+    else 
+    {
       try {
         // Call the bridge instead of handleInput directly
         // This sends the data to the Main process and waits for the result
-        let array = await window.cppAPI.transform(text, userSelections, 90);
+        let array = await window.cppAPI.transform(text, userSelections, additionalValue);
         
         console.log(array);
         
@@ -104,8 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
           outputArea.value += `${index}/ ${array[i]} \n`;
         }
         
+        // 3. Reset UI back to normal
+        inputArea.placeholder = "Enter text here";
         inputArea.value = '';
         outputArea.scrollTop = outputArea.scrollHeight;
+        additionalValue = '';
       } catch (err) {
         console.error("C++ Addon Error:", err);
       }
@@ -134,53 +146,3 @@ document.addEventListener('DOMContentLoaded', () => {
     modeToggleBtn.textContent = isLight ? 'Switch to Night Mode' : 'Switch to Light Mode';
   });
 });
-
-// class inputOptions {
-//   constructor(processMode, functionMode, additionalOption) {
-//     this.processMode = processMode;
-//     this.functionMode = functionMode[0];
-//     this.functionModeValue = functionMode[1];
-//     this.additionalOption = additionalOption[0];
-//     this.additionalOptionValue = additionalOption[1];
-//   }
-
-//   get processMode() {
-//     return this.processMode;
-//   }
-
-//   set processMode(value) {
-//     this.processMode = value;
-//   }
-
-//   get functionMode() {
-//     return this.functionMode;
-//   }
-
-//   set functionMode(value) {
-//     this.functionMode = value;
-//   }
-
-//   get functionModeValue() {
-//     return this.functionModeValue;
-//   }
-
-//   set functionModeValue(value) {
-//     this.functionModeValue = value;
-//   }
-
-//   get additionalOption() {
-//     return this.additionalOption;
-//   }
-
-//   set additionalOption(value) {
-//     this.additionalOption = value;
-//   }
-
-//   get additionalOptionValue() {
-//     return this.additionalOptionValue;
-//   }
-
-//   set additionalOptionValue(value) {
-//     this.additionalOptionValue = value;
-//   }
-// };

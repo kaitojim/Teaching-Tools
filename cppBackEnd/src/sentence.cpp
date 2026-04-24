@@ -29,7 +29,7 @@ std::string Sentence::blank(ProcessMode& process)
     {
         blank(process.getProcessValue<std::string>());
     }
-    else throw "Invalid processId at SentenceClass";
+    else throw std::invalid_argument("Invalid processId at SentenceClass");
     return m_mod_eleStr;
 }
 
@@ -63,7 +63,7 @@ std::string Sentence::blank(float opa_per)
     return m_mod_eleStr = temp;
 }
 
-std::string Sentence::scramble()
+std::string Sentence::scramble(ProcessMode& process)
 {
     if (!m_mod_eleStr.empty())
     {

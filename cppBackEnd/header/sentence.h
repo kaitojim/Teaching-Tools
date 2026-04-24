@@ -12,7 +12,7 @@ public:
     Sentence(std::string input);
     Sentence(std::vector<Word>& inputArr);
 
-    std::string scramble() override;
+    std::string scramble(ProcessMode&) override;
     std::string blank(ProcessMode&) override;
     std::string blank(float opa_per);
     std::string blank(const std::string& word);

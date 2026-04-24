@@ -74,7 +74,7 @@ public:
 
     virtual ~Element();
     virtual std::string blank(ProcessMode&);
-    virtual std::string scramble(); 
+    virtual std::string scramble(ProcessMode&); 
     
     friend std::string formatBlank(std::string& input);
     friend std::ostream& operator<< (std::ostream& out, Element& elem) {return out << elem.getModStr();}
@@ -93,7 +93,7 @@ std::vector<T> parseToken(const std::string& input, std::vector<T>& wordList, st
         wordList.push_back(temp);
         startPos = input.find_first_not_of(sep, lastPos);
 
-        if (input[startPos] == ' ') {startPos ++;}
+        if (startPos != -1 && input.at(startPos) == ' ') {startPos ++;}
     
         lastPos = input.find_first_of(sep, startPos);
     }

@@ -49,10 +49,8 @@ void functionMode(std::vector<std::unique_ptr<Element>>& inputArr, optionId inpu
     {
         std::cerr << e.what() << '\n';
     }
-    catch(const Element_error&)
-    {
-        std::cerr << e.what() << "\n";
-    }
+    
+    
 }
 
 void elementProcessMode(const std::string& input, std::vector<std::unique_ptr<Element>>& inputArr, optionId elementMode)

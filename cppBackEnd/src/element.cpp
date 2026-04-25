@@ -59,7 +59,7 @@ std::string Element::blank(ProcessMode&)
     return m_mod_eleStr;
 }
 
-std::string Element::scramble(ProcessMode&)
+std::string Element::scramble()
 {
     return m_mod_eleStr;
 }

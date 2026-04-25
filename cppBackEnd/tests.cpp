@@ -5,6 +5,7 @@
 #include <limits>
 #include <memory>
 #include <cstdlib>
+#include <sstream>
 
 #include ".\header\element.h"
 #include ".\header\InputOption.h"
@@ -50,7 +51,23 @@ void elementProcessMode(const std::string& input, std::vector<std::unique_ptr<El
     // - At this stage the programe don't know if it is processing word or sentence
     // - Just parsing based on the input separator
     std::vector<Element> eleArr{}; 
-    parseToken(input, eleArr, ",.");
+    std::string sep {};
+    switch (elementMode)
+    {
+    case optionId::word:
+        sep = ",;.";
+        break;
+
+    case optionId::sentence:
+        sep = ".?!";
+        break;
+
+    default:
+        throw std::invalid_argument("Invalid process mode");
+        break;
+    }
+
+    std::vector<std::string> conno {parseToken(input, eleArr, sep)};
     
     // Handle changing the base class to the choosen element (word or sentence) 
     // Element (word or setence processing)
@@ -63,7 +80,8 @@ void elementProcessMode(const std::string& input, std::vector<std::unique_ptr<El
         }
         else if (elementMode == optionId::sentence)
         {
-            auto ptr = std::make_unique<Sentence>(eleArr[i].getStr());
+            auto ptr = std::make_unique<Sentence>(eleArr[i].getStr(), conno[i]);
+            ptr->setConno(conno[i]);
             inputArr.push_back(std::move(ptr));
         }
         else throw "Invalid processMode";
@@ -78,6 +96,12 @@ int main(int argC, char* arg[])
         return 1;
     }
     
+    for (size_t i = 0; i < argC; i++)
+    {
+        std::cout << (std::string) arg[i] << '\n';
+    }
+    
+
     std::cout << "Valid arg" << "\n";
 
     ProcessMode process {};
@@ -93,6 +117,8 @@ int main(int argC, char* arg[])
 
         int perIdx {};
         float per {};
+        std::stringstream transFloat (((std::string) arg[4]));
+        std::string floatStr {};
         switch (addProcessMode)
         {
         case optionId::wordChar:    
@@ -103,8 +129,8 @@ int main(int argC, char* arg[])
             additionalProcessMode(process, optionId::idx, perIdx);                        
             break;
         case optionId::percent:
-            per = *((float*) arg[4]);
-            additionalProcessMode(process, optionId::wordChar, per);    
+            transFloat >> per;
+            additionalProcessMode(process, optionId::percent, per);    
             break;
         case optionId::firstWord:
             perIdx = *((int*) arg[4]);

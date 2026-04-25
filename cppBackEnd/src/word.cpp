@@ -21,7 +21,7 @@ std::string Word::blank(ProcessMode& process)
     { 
         blank();
     }
-    else throw std::invalid_argument("Invalid process id");
+    else throw std::invalid_argument("Invalid process id at class 'Word'.");
     return m_mod_eleStr;
 }
 
@@ -198,7 +198,7 @@ std::string Word::blank(const std::string& word)
     auto wordId {m_eleStr.find(word)};
     if (wordId == std::string::npos)
     {
-        throw std::runtime_error("No word/character match.");
+        throw std::runtime_error("No word/character match at class 'Word'.");
         return m_mod_eleStr;
     }
 

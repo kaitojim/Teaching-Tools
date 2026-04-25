@@ -43,7 +43,7 @@ public:
         
         if (temp.empty())
         {
-            throw std::runtime_error("String is empty");
+            throw std::runtime_error("String is empty at class 'ProcessMode'");
         }
         
         return temp;

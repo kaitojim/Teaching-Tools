@@ -4,7 +4,7 @@ Sentence::Sentence(std::string input, std::string conno) : m_conno(conno)
 {
     if (input == "")
     {
-        throw std::invalid_argument("Cannot find string");
+        throw std::invalid_argument("Cannot find string at class 'Sentence'.");
         return;
     }
     
@@ -33,7 +33,7 @@ std::string Sentence::blank(ProcessMode& process)
     {
         blank(process.getProcessValue());
     }
-    else throw std::invalid_argument("Invalid processId at SentenceClass");
+    else throw std::invalid_argument("Invalid processId at class 'Sentence'.");
     return m_mod_eleStr;
 }
 
@@ -114,7 +114,7 @@ std::string Sentence::blank(const std::string& word)
 
     if (idx == -1) 
     {
-        throw std::invalid_argument("Invalid word");
+        throw std::invalid_argument("Cannot find word/character at class 'Sentence'.");
         return m_eleStr;
     }
     

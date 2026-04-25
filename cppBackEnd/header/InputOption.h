@@ -56,7 +56,7 @@ inline optionId stringToId(const std::string& inputStr, std::unordered_map<std::
     {
         return it->second;
     }
-    throw std::invalid_argument("Cannot find string");
+    throw std::invalid_argument("Cannot find string at class 'InputOption'");
 }
 
 #endif

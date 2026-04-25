@@ -14,14 +14,14 @@ std::string Word::blank(ProcessMode& process)
 
     else if (process.getProcessId() == optionId::wordChar)
     {
-        blank(process.getProcessValue());  
+        
     }
 
     else if(process.getProcessId() == optionId::firstWord)
     { 
         blank();
     }
-    else throw std::invalid_argument("Invalid process id at class 'Word'.");
+    else throw std::invalid_argument("Invalid process id");
     return m_mod_eleStr;
 }
 
@@ -66,7 +66,7 @@ std::string Word::blank(float opa_per)
     }
     return m_mod_eleStr;
 }
-std::string Word::scramble(ProcessMode& process) 
+std::string Word::scramble() 
 {
     std::string formatEle {m_eleStr + '|'};
     if (m_eleStr != m_mod_eleStr)
@@ -185,24 +185,5 @@ std::string Word::blank()
             m_mod_eleStr += ' ';
         }
     }
-    return m_mod_eleStr;
-}
-
-std::string Word::blank(const std::string& word)
-{
-    if (m_eleStr != m_mod_eleStr)
-    {
-       m_mod_eleStr.clear();
-    }
-
-    auto wordId {m_eleStr.find(word)};
-    if (wordId == std::string::npos)
-    {
-        throw std::runtime_error("No word/character match at class 'Word'.");
-        return m_mod_eleStr;
-    }
-
-    m_mod_eleStr = m_eleStr;
-    m_mod_eleStr.replace(wordId, 1, "_");
     return m_mod_eleStr;
 }

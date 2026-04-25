@@ -14,7 +14,7 @@ std::string Word::blank(ProcessMode& process)
 
     else if (process.getProcessId() == optionId::wordChar)
     {
-        blank(process.getProcessValue<char>());  
+        blank(process.getProcessValue());  
     }
 
     else if(process.getProcessId() == optionId::firstWord)

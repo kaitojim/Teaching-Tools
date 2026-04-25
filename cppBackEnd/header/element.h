@@ -55,4 +55,5 @@ std::vector<std::string> parseToken(const std::string& input, std::vector<T>& wo
 
     return connotation;
 }
+
 #endif

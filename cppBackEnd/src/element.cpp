@@ -86,4 +86,3 @@ void sorting(std::vector<int>& num)
     }
     return;
 }
-

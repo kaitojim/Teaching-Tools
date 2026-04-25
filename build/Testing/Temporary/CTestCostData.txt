@@ -1,0 +1,10 @@
+unitTest1 1 2.93286
+w_fillChar 15 0.534476
+w_fillPer 8 0.0110517
+w_fillFirstWord 13 0.0111569
+w_fillIdx 14 0.010317
+w_scramble 12 0.00969653
+s_fillChar 11 0.550587
+s_fillPer 1 0.0093003
+s_scramble 11 0.00989211
+---

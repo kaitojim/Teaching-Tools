@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "testing.dir\\Debug\\tests.obj",
+            "outputs": [
+                "C:\\Users\\ADMIN\\Documents\\Teacher_tools\\V4\\teaching\\build\\testing.dir\\Debug\\vc145.pdb",
+                "testing.dir\\Debug\\"
+            ],
+            "requires": []
+        }
+    ]
+}

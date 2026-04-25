@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "element.dir\\Debug\\sentence.obj",
+            "outputs": [
+                "C:\\Users\\ADMIN\\Documents\\Teacher_tools\\V4\\teaching\\build\\src\\Debug\\element.pdb",
+                "element.dir\\Debug\\"
+            ],
+            "requires": []
+        }
+    ]
+}

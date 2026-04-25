@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <stdexcept>
 
 enum optionId
 {
@@ -32,11 +33,12 @@ namespace optionConvert
         {"word",                                        optionId::word},
         {"sentence",                                    optionId::sentence},
         {"scramble",                                    optionId::scramble},
-        {"fillintheblank",                           optionId::fill},
-        {"fillintheblank(percentage)",               optionId::percent},
-        {"fillintheblank(wordorcharacter)",        optionId::wordChar},
-        {"fillintheblank(index)",                    optionId::idx},
-        {"fillintheblank(firstletterorword)",     optionId::firstWord}
+        {"fillintheblank",                              optionId::fill},
+        {"fillintheblank(percentage)",                  optionId::percent},
+        {"fillintheblank(wordorcharacter)",             optionId::wordChar},
+        {"fillintheblank(index)",                       optionId::idx},
+        {"fillintheblank(firstletterorword)",           optionId::firstWord},
+        {"blank",                                       optionId::blank}
     };
 }
 
@@ -49,13 +51,12 @@ struct inputOption
 
 inline optionId stringToId(const std::string& inputStr, std::unordered_map<std::string, optionId> convertTable = optionConvert::convertTable)
 {
-    std::string error {};
     auto it {convertTable.find(inputStr)};
     if (it != convertTable.end())
     {
         return it->second;
     }
-    throw error = "Cannot find string";
+    throw std::invalid_argument("Cannot find string at class 'InputOption'");
 }
 
 #endif

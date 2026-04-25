@@ -1,0 +1,21 @@
+Start testing: Apr 24 09:15 SE Asia Standard Time
+----------------------------------------------------------
+1/1 Testing: unitTest1
+1/1 Test: unitTest1
+Command: "C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/cppBackEnd/bin/Debug/testing.exe" "o"
+Directory: C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build
+"unitTest1" start time: Apr 24 09:15 SE Asia Standard Time
+Output:
+----------------------------------------------------------
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/cppBackEnd/bin/Debug/testing.exe
+o
+Error
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"unitTest1" end time: Apr 24 09:15 SE Asia Standard Time
+"unitTest1" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 24 09:15 SE Asia Standard Time

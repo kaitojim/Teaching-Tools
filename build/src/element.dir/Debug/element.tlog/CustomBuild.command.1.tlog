@@ -1,0 +1,10 @@
+^C:\USERS\ADMIN\DOCUMENTS\TEACHER_TOOLS\V4\TEACHING\CPPBACKEND\SRC\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/cppBackEnd -BC:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build --check-stamp-file C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/src/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

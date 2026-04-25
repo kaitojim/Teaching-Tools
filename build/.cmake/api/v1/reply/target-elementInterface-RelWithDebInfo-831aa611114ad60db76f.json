@@ -1,0 +1,66 @@
+{
+	"abstract" : true,
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"header/CMakeLists.txt",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 4,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 19,
+				"parent" : 2
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "elementInterface::@e58011d291846dadfa7a",
+	"interfaceCompileDependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "element::@145eef247bfb46b6828c"
+		}
+	],
+	"interfaceLinkLibraries" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "element::@145eef247bfb46b6828c"
+		}
+	],
+	"name" : "elementInterface",
+	"paths" : 
+	{
+		"build" : "header",
+		"source" : "header"
+	},
+	"sources" : [],
+	"type" : "INTERFACE_LIBRARY"
+}

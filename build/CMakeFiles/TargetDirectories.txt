@@ -1,0 +1,9 @@
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/CMakeFiles/testing.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/CMakeFiles/RUN_TESTS.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/src/CMakeFiles/element.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/src/CMakeFiles/RUN_TESTS.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/src/CMakeFiles/ALL_BUILD.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/header/CMakeFiles/RUN_TESTS.dir
+C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/header/CMakeFiles/ALL_BUILD.dir

@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/cmake_install.cmake",
+		"C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/src/cmake_install.cmake",
+		"C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/header/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

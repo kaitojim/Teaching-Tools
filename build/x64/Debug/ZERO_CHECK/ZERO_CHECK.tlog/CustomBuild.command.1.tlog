@@ -1,0 +1,10 @@
+^C:\USERS\ADMIN\DOCUMENTS\TEACHER_TOOLS\V4\TEACHING\BUILD\CMAKEFILES\B88BA1F47E1453AB37B3A9C10199D4B1\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/cppBackEnd -BC:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/ADMIN/Documents/Teacher_tools/V4/teaching/build/testing.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

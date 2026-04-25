@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\ADMIN\Documents\Teacher_tools\V4\teaching\cppBackEnd\tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ADMIN\Documents\Teacher_tools\V4\teaching\cppBackEnd\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B8F0B8DC-55BF-31DF-9559-D718A36A06DC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

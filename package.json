@@ -1,0 +1,58 @@
+{
+  "name": "teaching",
+  "productName": "teaching",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".webpack/main",
+  "private": true,
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "build": "cmake-js compile"
+  },
+  "binary": {
+    "napi_versions": [
+      9
+    ]
+  },
+  "cmake-js": {
+    "runtime": "electron",
+    "runtimeVersion": "22.0.0",
+    "arch": "x64"
+  },
+  "nodeIntegration": true,
+  "contextIsolation": false,
+  "keywords": [],
+  "author": {
+    "name": "Kaitojim",
+    "email": "kaitojim@gmail.com"
+  },
+  "type": "commonjs",
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.11.1",
+    "@electron-forge/maker-deb": "^7.11.1",
+    "@electron-forge/maker-rpm": "^7.11.1",
+    "@electron-forge/maker-squirrel": "^7.11.1",
+    "@electron-forge/maker-zip": "^7.11.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.11.1",
+    "@electron-forge/plugin-fuses": "^7.11.1",
+    "@electron-forge/plugin-webpack": "^7.11.1",
+    "@electron/fuses": "^1.8.0",
+    "@electron/packager": "^19.1.0",
+    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
+    "css-loader": "^6.11.0",
+    "electron": "41.2.0",
+    "electron-rebuild": "^3.2.9",
+    "node-loader": "^2.1.0",
+    "style-loader": "^3.3.4"
+  },
+  "dependencies": {
+    "cmake-js": "^8.0.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "node-addon-api": "^8.7.0"
+  }
+}

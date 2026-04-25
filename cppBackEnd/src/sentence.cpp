@@ -1,17 +1,13 @@
 #include "..\header\sentence.h"
 
-Sentence::Sentence(std::string input, std::string conno) : m_conno(conno)
+Sentence::Sentence(std::string input) : Element(input) 
 {
-    if (input == "")
+    if (m_eleStr.find_first_of('.', 0) == std::string::npos)
     {
-        throw std::invalid_argument("Cannot find string at class 'Sentence'.");
-        return;
+        m_eleStr += '.';
     }
     
-    m_eleStr = input;
-    std::vector<Word> arr {};
-    parseToken(input, arr, " ");
-    m_sentenceStorage = arr;
+    parseToken(m_eleStr, m_sentenceStorage, " .");
 }
 
 Sentence::Sentence(std::vector<Word>& inputArr) :m_sentenceStorage(inputArr)
@@ -31,9 +27,9 @@ std::string Sentence::blank(ProcessMode& process)
     }
     else if (process.getProcessId() == optionId::wordChar)
     {
-        blank(process.getProcessValue());
+        blank(process.getProcessValue<std::string>());
     }
-    else throw std::invalid_argument("Invalid processId at class 'Sentence'.");
+    else throw "Invalid processId at SentenceClass";
     return m_mod_eleStr;
 }
 
@@ -67,7 +63,7 @@ std::string Sentence::blank(float opa_per)
     return m_mod_eleStr = temp;
 }
 
-std::string Sentence::scramble(ProcessMode& process)
+std::string Sentence::scramble()
 {
     if (!m_mod_eleStr.empty())
     {
@@ -94,29 +90,10 @@ std::string Sentence::blank(const std::string& word)
     {
         m_mod_eleStr.clear();
     }
-
-    int idx {};
-    for (size_t i = 0; i < m_sentenceStorage.size(); i++)
-    {
-        std::string temp {m_sentenceStorage[i].getStr()};
-        std::transform(temp.begin(), temp.end(), temp.begin(), 
-        [] (char c)
-        {
-            return std::tolower(c);
-        });
-        if (temp == word)
-        {
-            idx = i;
-            break;
-        }
-        else idx = -1;
-    }
-
-    if (idx == -1) 
-    {
-        throw std::invalid_argument("Cannot find word/character at class 'Sentence'.");
-        return m_eleStr;
-    }
+    
+    Word temp(word);
+    int idx {Search(m_sentenceStorage, temp)};
+    if (idx == -1) {return m_eleStr;}
     
     std::string tempStr {};
     for (int i = 0; i < m_sentenceStorage.size(); i++)
@@ -146,9 +123,4 @@ std::string Sentence::blank(int idx)
         if (i+1 < m_sentenceStorage.size()) {tempStr.push_back(' ');}
     }
     return m_mod_eleStr = tempStr;
-}
-
-std::string Sentence::getModStr()
-{
-    return m_mod_eleStr + m_conno;
 }

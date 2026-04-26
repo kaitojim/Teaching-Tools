@@ -14,89 +14,86 @@ document.addEventListener('DOMContentLoaded', () => {
   let inputAddValue = false;
 
   optionBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-      // const set = parseInt(this.dataset.set, 10);
-      //const option = this.dataset.option;
-      const set = parseInt(this.dataset.set, 10);
-      const option = this.textContent.trim();
+  btn.addEventListener('click', function () {
+    const set = parseInt(this.dataset.set, 10);
+    const option = this.textContent.trim();
 
-      if (
-        set === 1 ||
-        (set === 2 && categoriesChosen[1]) ||
-        (set === 3 && categoriesChosen[1] && categoriesChosen[2])
-      ) {
-        const sameCategoryBtns = document.querySelectorAll(`[data-set="${set}"]`);
-        sameCategoryBtns.forEach(categoryBtn => categoryBtn.classList.remove('active'));
-        this.classList.add('active');
+    // Validation check for sequence
+    if (
+      set === 1 ||
+      (set === 2 && categoriesChosen[1]) ||
+      (set === 3 && categoriesChosen[1] && categoriesChosen[2])
+    ) {
+      // 1. UI: Set active class
+      const sameCategoryBtns = document.querySelectorAll(`[data-set="${set}"]`);
+      sameCategoryBtns.forEach(categoryBtn => categoryBtn.classList.remove('active'));
+      this.classList.add('active');
 
-        // const existingIndex = userSelections.findIndex(selection => selection.category === set);
-        const existingIndex = userSelections.findIndex(selection => selection.hasOwnProperty(set));
-        if (existingIndex >= 0) {
-          // userSelections[existingIndex].option = option;
-          userSelections[existingIndex][set] = option;
-        } else {
-          // userSelections.push({ category: set, option });
-          let newSelection = {};
-          newSelection[set] = option;
-          userSelections.push(newSelection);
-        }
-
-        categoriesChosen[set] = true;
-
-        if (set === 2 && option === "Scramble") {
-          inputArea.disabled = false;
-          inputArea.placeholder = "Enter text here";
-          inputAddValue = false; // No additional value needed for scramble
-          inputArea.focus();
-          
-          // Disable Set 3 buttons since they aren't needed
-          document.querySelectorAll('[data-set="3"]').forEach(b => b.disabled = true);
-      } 
-
-        else if (set < 3) {
-          const nextSetBtns = document.querySelectorAll(`[data-set="${set + 1}"]`);
-           // If moving from Set 2 to Set 3, check if Set 1 was "Sentence"
-          if (set === 2) {
-            document.getElementById('set3').style.opacity = '1';
-            const set1Selection = userSelections.find(s => s[1]);
-            
-            nextSetBtns.forEach(nextBtn => {
-              const btnText = nextBtn.textContent;
-              // If Sentence was chosen, hide the "first letter or word" option
-              if (set1Selection[1] === "Sentence" && btnText.includes("first letter or word")) {
-                nextBtn.style.display = 'none';
-                nextBtn.disabled = true;
-              } else {
-                nextBtn.style.display = 'block';
-                nextBtn.disabled = false;
-              }
-            });
-          } else {
-            nextSetBtns.forEach(nextBtn => nextBtn.disabled = false);
-          }
-        } else if (set === 3) {
-          inputAddValue = true;
-          inputArea.disabled = false;
-          if (option.includes("Fill in the blank (percentage)") || option.includes("Fill in the blank (index)")) {
-            inputArea.placeholder = "Enter a number";
-          } 
-          else if(option.includes("Fill in the blank (word or letter)")) {
-            inputArea.placeholder = "Enter a word/character";
-          }
-          else if(option.includes("Fill in the blank (first letter or word)")) {
-            inputAddValue = false;
-            inputArea.placeholder = "Enter text here";
-          }
-          
-          inputArea.focus();
-        }
-
-        outputArea.value += (outputArea.value ? '\n' : '') + `Category ${set}: Option ${option}`;
-        outputArea.scrollTop = outputArea.scrollHeight;
-        console.log('User Selections:', userSelections);
+      // 2. Update state
+      const existingIndex = userSelections.findIndex(selection => selection.hasOwnProperty(set));
+      if (existingIndex >= 0) {
+        userSelections[existingIndex][set] = option;
+      } else {
+        let newSelection = {};
+        newSelection[set] = option;
+        userSelections.push(newSelection);
       }
-    });
+      categoriesChosen[set] = true;
+
+      // 3. GET CURRENT SELECTIONS FOR LOGIC
+      const getVal = (s) => (userSelections.find(sel => sel.hasOwnProperty(s)) || {})[s];
+      const s1 = getVal(1);
+      const s2 = getVal(2);
+
+      // 4. FILTER SET 3 BUTTONS (Run this every time Set 1 or Set 2 changes)
+      const set3Btns = document.querySelectorAll('[data-set="3"]');
+      if (s1 === "Sentence") {
+        set3Btns.forEach(b => {
+          if (b.textContent.includes("first letter or word") || b.textContent.includes("index")) {
+            b.style.display = 'none';
+            b.classList.remove('active'); // Clean up if it was active
+          } else {
+            b.style.display = 'block';
+          }
+        });
+      } else {
+        set3Btns.forEach(b => b.style.display = 'block');
+      }
+
+      // 5. HANDLE FLOW TRANSITIONS
+      if (set === 2 && option === "Scramble") {
+        // Scramble logic
+        inputArea.disabled = false;
+        inputArea.placeholder = "Enter text here";
+        inputAddValue = false;
+        inputArea.focus();
+        document.getElementById('set3').style.opacity = '0.3';
+      } 
+      else if (set < 3) {
+        // Unlock next set
+        document.getElementById('set3').style.opacity = '1';
+        const nextSetBtns = document.querySelectorAll(`[data-set="${set + 1}"]`);
+        nextSetBtns.forEach(nextBtn => nextBtn.disabled = false);
+      } 
+      else if (set === 3) {
+        // Final input preparation
+        inputArea.disabled = false;
+        inputAddValue = true;
+        if (option.includes("percentage") || option.includes("index")) {
+          inputArea.placeholder = "Enter a number";
+        } else if (option.includes("word or character")) {
+          inputArea.placeholder = "Enter a word/character";
+        } else if (option.includes("first letter or word")) {
+          inputAddValue = false;
+        }
+        inputArea.focus();
+      }
+
+      outputArea.value += (outputArea.value ? '\n' : '') + `Category ${set}: ${option}`;
+      outputArea.scrollTop = outputArea.scrollHeight;
+    }
   });
+});
 
   const processInput = async () => { // Added async
     const text = inputArea.value.trim();

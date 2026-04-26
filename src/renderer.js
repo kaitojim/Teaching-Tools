@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let userSelections = [];
   let categoriesChosen = {};
-  let additionalValue = {};
+  let additionalValue = 0;
   let inputAddValue = false;
 
   optionBtns.forEach(btn => {
@@ -43,12 +43,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
         categoriesChosen[set] = true;
 
-        if (set < 3) {
+        if (set === 2 && option === "Scramble") {
+          inputArea.disabled = false;
+          inputArea.placeholder = "Enter text here";
+          inputAddValue = false; // No additional value needed for scramble
+          inputArea.focus();
+          
+          // Disable Set 3 buttons since they aren't needed
+          document.querySelectorAll('[data-set="3"]').forEach(b => b.disabled = true);
+      } 
+
+        else if (set < 3) {
           const nextSetBtns = document.querySelectorAll(`[data-set="${set + 1}"]`);
-          nextSetBtns.forEach(nextBtn => {
-            nextBtn.disabled = false;
-          });
-        } else {
+           // If moving from Set 2 to Set 3, check if Set 1 was "Sentence"
+          if (set === 2) {
+            document.getElementById('set3').style.opacity = '1';
+            const set1Selection = userSelections.find(s => s[1]);
+            
+            nextSetBtns.forEach(nextBtn => {
+              const btnText = nextBtn.textContent;
+              // If Sentence was chosen, hide the "first letter or word" option
+              if (set1Selection[1] === "Sentence" && btnText.includes("first letter or word")) {
+                nextBtn.style.display = 'none';
+                nextBtn.disabled = true;
+              } else {
+                nextBtn.style.display = 'block';
+                nextBtn.disabled = false;
+              }
+            });
+          } else {
+            nextSetBtns.forEach(nextBtn => nextBtn.disabled = false);
+          }
+        } else if (set === 3) {
           inputAddValue = true;
           inputArea.disabled = false;
           if (option.includes("Fill in the blank (percentage)") || option.includes("Fill in the blank (index)")) {
@@ -57,7 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
           else if(option.includes("Fill in the blank (word or letter)")) {
             inputArea.placeholder = "Enter a word/character";
           }
-          else if(option.includes("Fill in the blank (first letter or word)")) {inputAddValue = false;}
+          else if(option.includes("Fill in the blank (first letter or word)")) {
+            inputAddValue = false;
+            inputArea.placeholder = "Enter text here";
+          }
           
           inputArea.focus();
         }
@@ -92,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       else
       {
-        additionalValue = text;
+        additionalValue = String(text);
       }
       inputAddValue   = false;
       inputArea.placeholder = "Enter text here";

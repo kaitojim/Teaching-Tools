@@ -21,38 +21,26 @@
 void functionMode(std::vector<std::unique_ptr<Element>>& inputArr, optionId inputOptionId, ProcessMode& additionalProcesMode)
 {   
     // Function (scramble or fill in the blank)
-    std::string error {};
-    try
+    switch (inputOptionId)
     {
-        switch (inputOptionId)
-        {
-        case optionId::scramble:
-            for (auto& p : inputArr)
+    case optionId::scramble:
+        for (auto& p : inputArr)
             {
-                p->scramble();
-            }
-            break;
-        
-        case optionId::fill:
-            for (auto& p : inputArr)
-            {
-                p->blank(additionalProcesMode);
-            }
-            break;
-
-        default:
-            throw error = "Invalid function";
-            break;
+            p->scramble(additionalProcesMode);
         }
-    }
-    catch(const std::invalid_argument& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    catch(const Element_error&)
-    {
-        std::cerr << e.what() << "\n";
-    }
+        break;
+        
+    case optionId::fill:
+        for (auto& p : inputArr)
+        {
+            p->blank(additionalProcesMode);
+        }
+        break;
+
+    default:
+        throw std::invalid_argument("Invalid function mode");
+        break;
+    } 
 }
 
 void elementProcessMode(const std::string& input, std::vector<std::unique_ptr<Element>>& inputArr, optionId elementMode)
@@ -61,7 +49,32 @@ void elementProcessMode(const std::string& input, std::vector<std::unique_ptr<El
     // - At this stage the programe don't know if it is processing word or sentence
     // - Just parsing based on the input separator
     std::vector<Element> eleArr{}; 
-    parseToken(input, eleArr, ",.");
+    std::string sep {};
+    switch (elementMode)
+    {
+    case optionId::word:
+        sep = ",;.";
+        break;
+
+    case optionId::sentence:
+        sep = ".?!";
+        break;
+
+    default:
+        throw std::invalid_argument("Invalid process mode");
+        break;
+    }
+
+    std::vector<std::string> conno {};
+    try
+    {
+        conno = parseToken(input, eleArr, sep);
+    }
+    catch(const std::invalid_argument& e)
+    {
+       throw e;
+       return;
+    }
     
     // Handle changing the base class to the choosen element (word or sentence) 
     // Element (word or setence processing)
@@ -74,11 +87,49 @@ void elementProcessMode(const std::string& input, std::vector<std::unique_ptr<El
         }
         else if (elementMode == optionId::sentence)
         {
-            auto ptr = std::make_unique<Sentence>(eleArr[i].getStr());
+            auto ptr = std::make_unique<Sentence>(eleArr[i].getStr(), conno[i]);
+            ptr->setConno(conno[i]);
             inputArr.push_back(std::move(ptr));
         }
-        else throw "Invalid processMode";
+        else throw std::invalid_argument("Invalid processMode");
     }
+}
+
+void additionalCheck(ProcessMode& process, const Napi::CallbackInfo& info, const std::vector<optionId>& optionIdContain)
+{
+    Napi::Env env {info.Env()};
+    if (optionIdContain[1] == optionId::scramble)
+    {
+        auto processValue {0};
+        additionalProcessMode(process, optionId::blank, processValue);
+        return;
+    }
+
+    if (optionIdContain[2] == optionId::idx)
+    {
+        auto processValue {(info[2].As<Napi::Number>().Int32Value())};
+        additionalProcessMode(process, optionIdContain[2], processValue);
+
+    }
+    else if (optionIdContain[2] == optionId::percent)
+    {
+        auto processValue {(info[2].As<Napi::Number>().FloatValue())};
+        additionalProcessMode(process, optionIdContain[2], processValue);
+    }
+    else if (optionIdContain[2] == optionId::wordChar)
+    {
+        auto processValue {(info[2].As<Napi::String>().Utf8Value())};
+        additionalProcessMode(process, optionIdContain[2], processValue);
+    }
+        else if (optionIdContain[2] == optionId::firstWord)
+    {
+        additionalProcessMode(process, optionIdContain[2], 0);
+    }
+    else
+    {
+        Napi::TypeError::New(env, "Invalid additionalProcessMode value").ThrowAsJavaScriptException();
+    }
+    return;
 }
 
 Napi::Value handleInput(const Napi::CallbackInfo& info)
@@ -86,21 +137,13 @@ Napi::Value handleInput(const Napi::CallbackInfo& info)
     //Init environment
     Napi::Env env = info.Env();
 
-#ifdef DEBUG
-    LogFromCpp(env, "env generate");
-#endif
-
     //Array check and init
     if (!info[1].IsArray())
     {
         Napi::TypeError::New(env, "Need an array").ThrowAsJavaScriptException();
     }
 
-#ifdef DEBUG
-    LogFromCpp(env, "Array checked");
-#endif
-
-    Napi::Array arrJS = info[1].As<Napi::Array>();// pass array from JS to c++ 
+    Napi::Array arrJS = info[1].As<Napi::Array>();// pass array of optionId from JS to c++ 
     std::vector<optionId> optionIdContain {};
     optionIdContain.reserve(arrJS.Length());// request container to be at least enought to store Length amount 
 
@@ -119,106 +162,42 @@ Napi::Value handleInput(const Napi::CallbackInfo& info)
                 });
                 std::erase_if(value, [](char temp){return std::isblank(temp);});
                 try {optionIdContain.emplace_back(stringToId(value));}
-                catch (std::string& e) {Napi::TypeError::New(env, e).ThrowAsJavaScriptException();}
+                catch (const std::invalid_argument& e) {Napi::TypeError::New(env, e.what()).ThrowAsJavaScriptException();}
             }
         }
         else Napi::TypeError::New(env, "Need an object for option id").ThrowAsJavaScriptException();
-    }
-
-#ifdef DEBUG 
-    for (size_t i = 0; i < optionIdContain.size(); i++)
-    {
-        LogFromCpp(env, (int)optionIdContain[i]);
-    }
-#endif   
-
-#ifdef DEBUG
-    LogFromCpp(env, "Array passed successfully");
-#endif
+    }  
 
     std::string inputStr {info[0].As<Napi::String>().Utf8Value()};
     std::vector<std::unique_ptr<Element>> inputArr {};
-    try {elementProcessMode(inputStr, inputArr, optionIdContain[0]);}
-    catch (std::string& e) {Napi::TypeError::New(env, e).ThrowAsJavaScriptException();}
-
-#ifdef DEBUG
-    for (size_t i = 0; i < inputArr.size(); i++)
+    try
     {
-        LogFromCpp(env, inputArr[i]->getStr());
-    }
-    
-    LogFromCpp(env, "Element init sucessfully");
-#endif
+        elementProcessMode(inputStr, inputArr, optionIdContain[0]);
+        std::cout << "elementMode" << '\n';
 
-    ProcessMode additionalProcessMode {};
-    if (optionIdContain[2] == optionId::idx)
-    {
-        auto processValue {(info[2].As<Napi::Number>().Int32Value())};
-        additionalBlankProcessMode(additionalProcessMode, optionIdContain[2], processValue);
+        ProcessMode additionalProcessMode {};
+        additionalCheck(additionalProcessMode, info, optionIdContain);
+        std::cout << "additionalMode" << '\n';
 
-#ifdef DEBUG
-    LogFromCpp(env, "idx");
-    LogFromCpp(env, processValue);
-
-#endif
-    }
-    else if (optionIdContain[2] == optionId::percent)
-    {
-        auto processValue {(info[2].As<Napi::Number>().FloatValue())};
-        additionalBlankProcessMode(additionalProcessMode, optionIdContain[2], processValue);
-
-#ifdef DEBUG
-    LogFromCpp(env, "percent");
-    LogFromCpp(env, processValue);
-#endif
+        functionMode(inputArr, optionIdContain[1], additionalProcessMode);
+        std::cout << "funcMode" << '\n';
 
     }
-    else if (optionIdContain[2] == optionId::wordChar)
+    catch(const std::invalid_argument& e)
     {
-        auto processValue {(info[2].As<Napi::String>().Utf8Value())};
-        additionalBlankProcessMode(additionalProcessMode, optionIdContain[2], processValue);
-
-#ifdef DEBUG
-    LogFromCpp(env, "wordChar");
-    LogFromCpp(env, processValue);
-#endif
-
+        Napi::TypeError::New(env, e.what()).ThrowAsJavaScriptException();
     }
-    else if (optionIdContain[2] == optionId::firstWord)
+    catch(const std::runtime_error& e)
     {
-        additionalBlankProcessMode(additionalProcessMode, optionIdContain[2], optionId::blank);
-
-#ifdef DEBUG
-    LogFromCpp(env, "fistWord");
-#endif
-
+        Napi::TypeError::New(env, e.what()).ThrowAsJavaScriptException();
     }
-    else
-    {
-        Napi::TypeError::New(env, "Invalid additionalProcessMode value").ThrowAsJavaScriptException();
-    }
-
-#ifdef DEBUG
-    LogFromCpp(env, "Blank additional mode checked successfully");
-#endif
-
-    try {functionMode(inputArr, optionIdContain[1], additionalProcessMode);}
-    catch (std::string& e) {Napi::TypeError::New(env, e).ThrowAsJavaScriptException();}
-    catch (const std::invalid_argument& e) {Napi::TypeError::New(env, e.what()).ThrowAsJavaScriptException();}
-
-#ifdef DEBUG
-    LogFromCpp(env, "Function passed successfully");
-#endif
 
     Napi::Array outputArr  {Napi::Array::New(env, inputArr.size())};
     for (size_t i = 0; i < inputArr.size(); i++)
     {
+        std::cout << inputArr[i].get()->getModStr() << '\n';
         outputArr.Set(i, Napi::String::New(env, inputArr[i].get()->getModStr()));
     }
-
-#ifdef DEBUG
-    LogFromCpp(env, "Output successfully");
-#endif
 
     return outputArr;
 }

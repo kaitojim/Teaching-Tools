@@ -15,7 +15,7 @@
 #define NO_VALUE 9900
 
 template <typename Tp>
-void additionalBlankProcessMode(ProcessMode& process, optionId inputOptionId, Tp value)
+void additionalProcessMode(ProcessMode& process, optionId inputOptionId, Tp value)
 {
     process.processModeInit((value));
     process.setProcessId(inputOptionId);

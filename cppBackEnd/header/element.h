@@ -39,7 +39,19 @@ std::vector<std::string> parseToken(const std::string& input, std::vector<T>& wo
 {
     std::vector<std::string> connotation {};
     int startPos {static_cast<int>(input.find_first_not_of(sep, 0))};
+    if (startPos == -1)
+    {
+        throw std::invalid_argument("No string to parse");
+        return connotation;
+    }
+    
     int lastPos {static_cast<int>(input.find_first_of(sep, 0))};
+    if (lastPos == -1)
+    {
+        throw std::invalid_argument("No connotaion to parse");
+        return connotation;
+    }
+    
     while (startPos >= 0)
     {
         if (lastPos != -1) {connotation.emplace_back(input.substr(lastPos, 1));}
